@@ -1,7 +1,3 @@
-# BLACKJACK
-# The game does not include splitting cards.
-# I made the game to practice using dictionaries and functions.
-
 import random
 
 deck_of_cards = {'Ace of Spades': 11, '2 of Spades': 2, '3 of Spades': 3, '4 of Spades': 4, '5 of Spades': 5,
@@ -69,7 +65,16 @@ def blackjack_game():
             print(f"Dealer's score: {dealer_total_hand_value}")
             if player_total_hand_value > 21:
                 print(f"You exceeded 21. You lose!")
-                quit()
+                if input("If you want to play again, press 'y'. If not, press 'n'") == "y":
+                    print("\n" * 100)
+                    blackjack_game()
+                else:
+                    print("Thank you for playing!")
+            elif player_total_hand_value == 21:
+                print("\nYOU WIN!")
+                if input("\nDo you want to play another game? 'y' or 'n': ") == "y":
+                    clear_screen()
+                    blackjack_game()
             draw_choice = input("\nType 'y' to get another card, 'n' to pass and finish current game: ")
 
         if not draw_another_card:
@@ -85,7 +90,7 @@ def blackjack_game():
         if not draw_another_card and dealer_limit_reached:
             print(f"Your final hand is: {', '.join(player_hand_list)}. Final score is {player_total_hand_value}")
             print(f"Dealer's final hand is: {', '.join(dealer_hand_list)}. Dealer's final score is: {dealer_total_hand_value}")
-            if dealer_total_hand_value > 21 and player_total_hand_value <= 21:
+            if (dealer_total_hand_value > 21 and player_total_hand_value <= 21) or player_total_hand_value == 21:
                 print("\nYOU WIN!")
             elif dealer_total_hand_value <= 21 and dealer_total_hand_value > player_total_hand_value:
                 print("\nDealer wins!")
@@ -96,9 +101,8 @@ def blackjack_game():
                 blackjack_game()
             else:
                 game_over = True
+                print("Thank you for playing!")
                 quit()
 
 
 blackjack_game()
-
-
